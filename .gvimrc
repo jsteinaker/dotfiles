@@ -1,2 +1,1 @@
-" Esquema de colores
-colorscheme slate
+" Configuración específica de GVIM
