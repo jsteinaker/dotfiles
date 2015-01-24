@@ -36,6 +36,12 @@ if has('mouse')
 	set mouse=a
 endif
 
+" UTF-8 por defecto
+set encoding=utf8
+
+" Formatos de archivo, se prefiere UNIX
+set ffs=unix,dos,mac
+
 " Todos los backups, swaps y undo a su correspondiente directorio. Chequea si
 " el directorio existe, y lo crea si es necesario.
 if !isdirectory(expand("$HOME/.vim/swap"))
