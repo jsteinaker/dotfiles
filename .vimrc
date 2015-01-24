@@ -42,6 +42,12 @@ set encoding=utf8
 " Formatos de archivo, se prefiere UNIX
 set ffs=unix,dos,mac
 
+" No diferencia entre mayúsculas y minúsculas para buscar
+set ignorecase
+
+" Trata de ser inteligente respecto de la capitalización cuando busca
+set smartcase
+
 " Todos los backups, swaps y undo a su correspondiente directorio. Chequea si
 " el directorio existe, y lo crea si es necesario.
 if !isdirectory(expand("$HOME/.vim/swap"))
