@@ -7,12 +7,26 @@ if has('win32') || has('win64')
 	set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
+" La reglita
+set ruler
+
 " Esquema de colores
 colorscheme murphy
 
 " Activa la indentación según el tipo de archivo
 filetype plugin on
 filetype indent on
+
+" Activa el resaltado de sintaxis
+syntax on
+
+" Longitud del tabulador = 4 espacios
+set shiftwidth=4
+set tabstop=4
+
+" Indentación automática e inteligente
+set ai
+set si
 
 " Desactiva la campanita molesta
 set noerrorbells
@@ -21,9 +35,6 @@ set noerrorbells
 if has('mouse')
 	set mouse=a
 endif
-
-" La reglita
-set ruler
 
 " Todos los backups, swaps y undo a su correspondiente directorio. Chequea si
 " el directorio existe, y lo crea si es necesario.
