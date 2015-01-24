@@ -14,6 +14,17 @@ colorscheme murphy
 filetype plugin on
 filetype indent on
 
+" Desactiva la campanita molesta
+set noerrorbells
+
+" Mouse, donde se pueda
+if has('mouse')
+	set mouse=a
+endif
+
+" La reglita
+set ruler
+
 " Todos los backups, swaps y undo a su correspondiente directorio. Chequea si
 " el directorio existe, y lo crea si es necesario.
 if !isdirectory(expand("$HOME/.vim/swap"))
