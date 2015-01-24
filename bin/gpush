@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# gpush, alias para subir a git en un sólo paso.
+# Modo de uso: gpush "Resumen del commit"
+
 git add --all
 git commit -m "$1"
 git push
