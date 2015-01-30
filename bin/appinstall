@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Instala la aplicación en el emulador Android.
+# Correr desde la raíz del proyecto.
+
+adb install ./build/outputs/apk/${PWD##*/}-debug.apk
