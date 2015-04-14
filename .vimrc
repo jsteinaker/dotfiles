@@ -36,6 +36,11 @@ if has('mouse')
 	set mouse=a
 endif
 
+" Soporte para mouse dentro de tmux
+if &term =~ '^screen'
+	set ttymouse=xterm2
+endif
+
 " UTF-8 por defecto
 set encoding=utf8
 
