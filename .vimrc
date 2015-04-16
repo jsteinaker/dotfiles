@@ -11,7 +11,7 @@ endif
 set ruler
 
 " Esquema de colores
-colorscheme murphy
+colorscheme evening
 
 " Activa la indentación según el tipo de archivo
 filetype plugin on
