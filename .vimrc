@@ -53,6 +53,9 @@ set ignorecase
 " Trata de ser inteligente respecto de la capitalización cuando busca
 set smartcase
 
+" Activa el "folding" para navegar por clases y métodos fácilmente
+set foldmethod=syntax
+
 " Todos los backups, swaps y undo a su correspondiente directorio. Chequea si
 " el directorio existe, y lo crea si es necesario.
 if !isdirectory(expand("$HOME/.vim/swap"))
