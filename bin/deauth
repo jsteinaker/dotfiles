@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo aireplay-ng -0 $1 -a $2 -c $3 --ignore-negative-one mon0
