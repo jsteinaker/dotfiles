@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# rawdelete v.0.1, script used to delete RAW files if there's no corresponding JPG
+#
+# In-camera software deletes both files (RAW and JPG) at the same time.
+# That's convenient, because when you try to get rid of a bad picture,
+# you don't want any of the files. When on a computer, one can hop through
+# the JPGs, delete the unwanted, and then run this script to get rid
+# of the corresponding CR2 files.
+#
+# Known bugs:
+# - File extensions are hardcoded
+
+CR2_FILES="`ls -1 | grep -i cr2`"
+JPG_FILES="`ls -1 | grep -i jpg`"
+
+IFS=$'\n'
+
+for file in $JPG_FILES
+do
+	mv $file ${file%.*}.jpg
+done
+
+for file in $CR2_FILES
+do
+	if [ ! -e ${file%.*}.jpg ]
+	then
+		rm -rf $file
+	fi
+done
+
+exit 0
