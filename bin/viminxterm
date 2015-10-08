@@ -1,0 +1,5 @@
+#!/bin/bash
+
+path=$(echo $1 | sed -E 's/%20/ /g')
+
+x-terminal-emulator -e vim $path

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# rawdelete v.0.1, script used to delete RAW files if there's no corresponding JPG
+# rawdelete v.0.2, script used to delete RAW files if there's no corresponding JPG
 #
 # In-camera software deletes both files (RAW and JPG) at the same time.
 # That's convenient, because when you try to get rid of a bad picture,
@@ -9,19 +9,86 @@
 # of the corresponding CR2 files.
 #
 # Known bugs:
-# - File extensions are hardcoded
+# - Doesn't handle different argument order very well.
+# - If chosen extension appears elsewhere in the names (for example,
+# IMGJPG_009.JPG, or even JPG008.CR2) things will mess, for sure. It isn't a
+# problem in "normal" cases, though.
 
-CR2_FILES="`ls -1 | grep -i cr2`"
-JPG_FILES="`ls -1 | grep -i jpg`"
+show_help()
+{
+	echo "Usage: '`basename $0`', without arguments, deletes all the CR2 (Canon RAW) files"
+	echo "which doesn't have a corresponding JPG. For example, if you have the files"
+	echo "IMG_001.CR2, IMG_001.JPG, and IMG_002.CR2, the last one will be deleted."
+	echo ""
+	echo "Valid arguments:"
+	echo "'-e RAW LOSSY' allows to change the file extensions used. For example,"
+	echo "'`basename $0` -e NEF PNG' deletes all Nikon RAW (NEF) files which doesn't have"
+	echo "a corresponding PNG."
+}
+
+show_version()
+{
+	echo "`basename $0` version 0.2"
+	echo "Copyright (C) 2015 Javier Steinaker"
+}
+
+err_wrong_arg()
+{
+	echo "Wrong argument: $1"
+	echo "Try '`basename $0` --help'"
+}
+
+err_illegal_args()
+{
+	echo "Illegal number of arguments"
+	echo "Try '`basename $0` --help'"
+}
+
+# Check for arguments
+if [ -n "$1" ]
+then
+	if [ "$1" == "--help" ]
+	then
+		# Show help if the '--help' argument was given
+		show_help
+		exit 0
+	elif [ "$1" == "--version" ]
+	then
+		show_version
+		exit 0
+	elif [ "$1" == "-e" ]
+	then
+		if [ "$#" == 3 ]
+		then
+			# If the '-e' argument was given, and there's exactly two
+			# arguments after, use them as the file extensions.
+			raw=$2
+			lossy=$3
+		else
+			err_illegal_args
+			exit 1
+		fi
+	else
+		err_wrong_arg $1
+		exit 1
+	fi
+else
+	# If no arguments were given, use the default extensions.
+	raw='cr2'
+	lossy='jpg'
+fi
+
+RAW_FILES="`ls -1 | grep -i $raw`"
+LOSSY_FILES="`ls -1 | grep -i $lossy`"
 
 IFS=$'\n'
 
-for file in $JPG_FILES
+for file in $LOSSY_FILES
 do
 	mv $file ${file%.*}.jpg
 done
 
-for file in $CR2_FILES
+for file in $RAW_FILES
 do
 	if [ ! -e ${file%.*}.jpg ]
 	then
