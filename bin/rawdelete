@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# rawdelete v.0.2, script used to delete RAW files if there's no corresponding JPG
+# rawdelete v.0.2.1, script used to delete RAW files if there's no corresponding JPG
 #
 # In-camera software deletes both files (RAW and JPG) at the same time.
 # That's convenient, because when you try to get rid of a bad picture,
@@ -78,19 +78,15 @@ else
 	lossy='jpg'
 fi
 
-RAW_FILES="`ls -1 | grep -i $raw`"
-LOSSY_FILES="`ls -1 | grep -i $lossy`"
+shopt -s nocaseglob
+
+RAW_FILES="`ls -1 *.$raw`"
 
 IFS=$'\n'
 
-for file in $LOSSY_FILES
-do
-	mv $file ${file%.*}.jpg
-done
-
 for file in $RAW_FILES
 do
-	if [ ! -e ${file%.*}.jpg ]
+	if [ ! `find . -iname ${file%.*}.$lossy` ]
 	then
 		rm -rf $file
 	fi
