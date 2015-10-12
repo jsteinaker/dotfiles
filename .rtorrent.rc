@@ -1,0 +1,21 @@
+# Default directory to save the downloaded torrents.
+directory = ./Descargas
+
+# Default session directory. Make sure you don't run multiple instance
+# of rtorrent using the same session directory. Perhaps using a
+# relative path?
+session = ./torrents/session
+
+# Watch a directory for new torrents, and stop those that have been
+# deleted.
+schedule = watch_directory,5,5,load_start=./torrents/*.torrent
+schedule = tied_directory,6,5,start_tied=
+schedule = untied_directory,7,5,stop_untied=
+
+# Periodically save session data
+schedule = session_save,240,300,session_save=
+
+# Enable DHT
+dht = auto
+
+peer_exchange = yes
