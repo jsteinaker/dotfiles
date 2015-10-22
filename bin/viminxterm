@@ -1,5 +1,7 @@
 #!/bin/bash
 
 path=$(echo $1 | sed -E 's/%20/ /g')
+inter=${path##*/}
+title=${inter%¬\'}
 
-x-terminal-emulator -t "VIM - $path" -e vim $path
+x-terminal-emulator --title "VIM - $title" -e vim "$path"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# rawdelete v.0.2.1, script used to delete RAW files if there's no corresponding JPG
+# rawdelete, script used to delete RAW files if there's no corresponding JPG
 #
 # In-camera software deletes both files (RAW and JPG) at the same time.
 # That's convenient, because when you try to get rid of a bad picture,
@@ -8,11 +8,13 @@
 # the JPGs, delete the unwanted, and then run this script to get rid
 # of the corresponding CR2 files.
 #
-# Known bugs:
-# - Doesn't handle different argument order very well.
-# - If chosen extension appears elsewhere in the names (for example,
-# IMGJPG_009.JPG, or even JPG008.CR2) things will mess, for sure. It isn't a
-# problem in "normal" cases, though.
+
+# Global variables
+version=0.3
+caseSensitive=0
+findargs=""
+raw='CR2'
+lossy='JPG'
 
 show_help()
 {
@@ -20,73 +22,58 @@ show_help()
 	echo "which doesn't have a corresponding JPG. For example, if you have the files"
 	echo "IMG_001.CR2, IMG_001.JPG, and IMG_002.CR2, the last one will be deleted."
 	echo ""
-	echo "Valid arguments:"
-	echo "'-e RAW LOSSY' allows to change the file extensions used. For example,"
-	echo "'`basename $0` -e NEF PNG' deletes all Nikon RAW (NEF) files which doesn't have"
-	echo "a corresponding PNG."
+	echo "Options"
+	echo "======="
+	echo "'-h': Shows this help"
+	echo ""
+	echo "'-v': Prints version and quits"
+	echo ""
+	echo "'-s': Case sensitive mode. Will not match IMG_001.jpg by default (note the"
+	echo "lowercase in extension). Usually not wanted."
+	echo ""
+	echo "'-r RAW': allows to change the raw file extension used"
+	echo ""
+	echo "'-l LOSSY': allows to change the lossy file extension used"
 }
 
 show_version()
 {
-	echo "`basename $0` version 0.2"
+	echo "`basename $0` version $version"
 	echo "Copyright (C) 2015 Javier Steinaker"
 }
 
-err_wrong_arg()
-{
-	echo "Wrong argument: $1"
-	echo "Try '`basename $0` --help'"
-}
+while getopts "hvsr:l:" Option
+do
+	case $Option in
+	h) 	show_help
+		exit 0
+		;;
+	v)	show_version
+		exit 0
+		;;
+	s)	caseSensitive=1
+		;;
+	r) 	raw=$OPTARG
+		;;
+	l)	lossy=$OPTARG
+		;;
+	*)	exit -1
+		;;
+	esac
+done
 
-err_illegal_args()
-{
-	echo "Illegal number of arguments"
-	echo "Try '`basename $0` --help'"
-}
-
-# Check for arguments
-if [ -n "$1" ]
+if [ "$caseSensitive" -eq 0 ]
 then
-	if [ "$1" == "--help" ]
-	then
-		# Show help if the '--help' argument was given
-		show_help
-		exit 0
-	elif [ "$1" == "--version" ]
-	then
-		show_version
-		exit 0
-	elif [ "$1" == "-e" ]
-	then
-		if [ "$#" == 3 ]
-		then
-			# If the '-e' argument was given, and there's exactly two
-			# arguments after, use them as the file extensions.
-			raw=$2
-			lossy=$3
-		else
-			err_illegal_args
-			exit 1
-		fi
-	else
-		err_wrong_arg $1
-		exit 1
-	fi
-else
-	# If no arguments were given, use the default extensions.
-	raw='cr2'
-	lossy='jpg'
+	shopt -s nocaseglob
+	findargs='i'
 fi
 
-shopt -s nocaseglob
+IFS=$'\t'
+shopt -s nullglob	
 
-RAW_FILES="`ls -1 *.$raw`"
-
-IFS=$'\n'
-
-for file in $RAW_FILES
+for file in *."$raw"
 do
-	if [ ! `find . -iname ${file%.*}.$lossy` ]
+	if [ ! `find . -"$findargs"name ${file%.*}.$lossy` ]
 	then
 		rm -rf $file
 	fi
