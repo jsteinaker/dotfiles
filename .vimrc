@@ -41,6 +41,9 @@ if &term =~ '^screen'
 	set ttymouse=xterm2
 endif
 
+" Divide las líneas por palabras (no corta palabras a la mitad)
+set lbr
+
 " UTF-8 por defecto
 set encoding=utf8
 
