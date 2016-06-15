@@ -20,6 +20,9 @@ filetype indent on
 " Activa el resaltado de sintaxis
 syntax on
 
+" Delete funciona como debería
+set backspace=2
+
 " Longitud del tabulador = 4 espacios
 set shiftwidth=4
 set tabstop=4
