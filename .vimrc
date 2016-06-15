@@ -31,9 +31,6 @@ set tabstop=4
 set ai
 set si
 
-" Desactiva la campanita molesta
-set noerrorbells
-
 " Mouse, donde se pueda
 if has('mouse')
 	set mouse=a
@@ -115,3 +112,7 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+" Desactiva campanas al, por ejemplo, presionar ESC en modo normal
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
