@@ -1,21 +1,30 @@
 " Funcionalidad completa, incompatibilidad con vi
 set nocompatible
 
+" Requerido para Vundle
+filetype off
+
 " Usar la carpeta .vim para guardar los archivos específicos al programa,
 " incluso en Windows
 if has('win32') || has('win64')
 	set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
+" Vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+
+call vundle#end()
+filetype plugin indent on
+
 " La reglita
 set ruler
 
 " Esquema de colores
 colorscheme evening
-
-" Activa la indentación según el tipo de archivo
-filetype plugin on
-filetype indent on
 
 " Activa el resaltado de sintaxis
 syntax on
