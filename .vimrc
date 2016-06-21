@@ -17,6 +17,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'rking/ag.vim'
+Plugin 'Valloric/YouCompleteMe'
 "Plugin 'hsanson/vim-android'
 
 call vundle#end()
