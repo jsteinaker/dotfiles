@@ -16,6 +16,8 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'rking/ag.vim'
+"Plugin 'hsanson/vim-android'
 
 call vundle#end()
 filetype plugin indent on
@@ -125,3 +127,19 @@ endif
 " Desactiva campanas al, por ejemplo, presionar ESC en modo normal
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
+
+" Silver searcher
+let g:ag_working_path_mode="r"
+
+" Configuración de plugin Android
+"if has('win32')
+"	if isdirectory('C:\Program Files (x86)')
+"		"Windows 64 bits
+"		let g:android_sdk_path = 'C:\Program Files (x86)\Android\android-sdk'
+"	else
+"		"Windows 32 bits
+"		let g:android_sdk_path = 'C:\Program Files\Android\android-sdk'
+"	endif
+"else
+"	let g:android_sdk_path = '/opt/android-sdk-linux'
+"endif
