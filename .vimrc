@@ -18,6 +18,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'airblade/vim-rooter'
 "Plugin 'hsanson/vim-android'
 
 call vundle#end()
@@ -131,6 +132,17 @@ autocmd GUIEnter * set visualbell t_vb=
 
 " Silver searcher
 let g:ag_working_path_mode="r"
+
+" Vim-Rooter
+let g:rooter_silent_chdir = 1
+
+" F5 launchs gradle wrapper (Vim-Rooter already set cwd)
+" Use backslash on windows (is there an easier way?)
+if has('win32')
+	map <F5> :!.\gradlew assembleDebug<CR>
+else
+	map <F5> :!./gradlew assembleDebug<CR>
+endif
 
 " Configuración de plugin Android
 "if has('win32')
