@@ -139,9 +139,16 @@ let g:rooter_silent_chdir = 1
 " F5 launchs gradle wrapper (Vim-Rooter already set cwd)
 " Use backslash on windows (is there an easier way?)
 if has('win32')
-	map <F5> :!.\gradlew assembleDebug<CR>
+	noremap <F5> :!.\gradlew assembleDebug<CR>
 else
-	map <F5> :!./gradlew assembleDebug<CR>
+	noremap <F5> :!./gradlew assembleDebug<CR>
+endif
+
+" F6 installs the app to phone or emulator
+if has('win32')
+	noremap <F6> :execute '!adb install .\build\outputs\apk\' . fnamemodify('.', ':p:h:t') . '-debug.apk'<CR>
+else
+	noremap <F6> :execute '!adb install ./build/outputs/apk/' . fnamemodify('.', ':p:h:t') . '-debug.apk'<CR>
 endif
 
 " Configuración de plugin Android
