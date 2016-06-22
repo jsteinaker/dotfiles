@@ -150,9 +150,9 @@ endif
 
 " F6 installs the app to phone or emulator
 if has('win32')
-	noremap <F6> :execute '!adb install .\build\outputs\apk\' . fnamemodify('.', ':p:h:t') . '-debug.apk'<CR>
+	noremap <F6> :execute 'silent !adb install .\build\outputs\apk\' . fnamemodify('.', ':p:h:t') . '-debug.apk'<CR>
 else
-	noremap <F6> :execute '!adb install ./build/outputs/apk/' . fnamemodify('.', ':p:h:t') . '-debug.apk'<CR>
+	noremap <F6> :execute 'silent !adb install ./build/outputs/apk/' . fnamemodify('.', ':p:h:t') . '-debug.apk'<CR>
 endif
 
 " Configuración de plugin Android
