@@ -17,9 +17,10 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'rking/ag.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-rooter'
+Plugin 'altercation/vim-colors-solarized'
 "Plugin 'hsanson/vim-android'
+"Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 filetype plugin indent on
@@ -27,8 +28,11 @@ filetype plugin indent on
 " La reglita
 set ruler
 
+" Fondo oscuro
+set background=dark
+
 " Esquema de colores
-colorscheme evening
+colorscheme solarized
 
 " Activa el resaltado de sintaxis
 syntax on
@@ -163,3 +167,6 @@ endif
 "else
 "	let g:android_sdk_path = '/opt/android-sdk-linux'
 "endif
+
+" Prueba transparencia
+"hi Normal ctermbg=NONE
