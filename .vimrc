@@ -18,6 +18,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'airblade/vim-rooter'
+Plugin 'morhetz/gruvbox'
 Plugin 'altercation/vim-colors-solarized'
 "Plugin 'hsanson/vim-android'
 "Plugin 'Valloric/YouCompleteMe'
@@ -32,7 +33,7 @@ set ruler
 set background=dark
 
 " Esquema de colores
-colorscheme solarized
+colorscheme gruvbox
 
 " Activa el resaltado de sintaxis
 syntax on
