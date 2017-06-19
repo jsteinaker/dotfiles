@@ -19,7 +19,6 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'airblade/vim-rooter'
 Plugin 'morhetz/gruvbox'
-Plugin 'altercation/vim-colors-solarized'
 "Plugin 'hsanson/vim-android'
 "Plugin 'Valloric/YouCompleteMe'
 
@@ -31,6 +30,11 @@ set ruler
 
 " Fondo oscuro
 set background=dark
+
+" Colores 24 bit si estamos en NeoVIM
+if has('nvim')
+	set termguicolors
+endif
 
 " Esquema de colores
 colorscheme gruvbox
