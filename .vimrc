@@ -4,12 +4,6 @@ set nocompatible
 " Requerido para Vundle
 filetype off
 
-" Usar la carpeta .vim para guardar los archivos específicos al programa,
-" incluso en Windows
-"if has('win32') || has('win64')
-"	set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-"endif
-
 " Carpeta de configuración
 if has('nvim')
 	let vimpath=expand("~/.config/nvim")
@@ -19,8 +13,22 @@ else
 	let vimpath=expand("~/.vim")
 endif
 
-" Vundle
+" Autoinstalación de Vundle en caso de que no estuviera presente (requiere Git)
+let vundle_installed=1
+let vundle_readme=expand(vimpath . '/bundle/Vundle.vim/README.md')
+if !filereadable(vundle_readme)
+	" Continuamos únicamente si tenemos Git
+	if executable('git')
+		echo "Instalando Vundle.."
+		echo ""
+		call mkdir(expand(vimpath . '/bundle'), "p")
+		silent exec "!git clone https://github.com/VundleVim/Vundle.vim.git " . vimpath . "/bundle/Vundle.vim"
+		let vundle_installed=0
+	endif
+endif
 let &runtimepath .= ',' . expand(vimpath . '/bundle/Vundle.vim')
+
+" Ahora sí, plugins
 call vundle#rc(expand(vimpath . '/bundle'))
 
 Plugin 'VundleVim/Vundle.vim'
@@ -32,6 +40,13 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'hsanson/vim-android'
 "Plugin 'Valloric/YouCompleteMe'
+
+" Si acabamos de instalar Vundle, instalar los plugins
+if vundle_installed == 0
+	echo "Instalando Plugins"
+	echo ""
+	:PluginInstall
+endif
 
 call vundle#end()
 filetype plugin indent on
