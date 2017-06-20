@@ -6,19 +6,30 @@ filetype off
 
 " Usar la carpeta .vim para guardar los archivos específicos al programa,
 " incluso en Windows
-if has('win32') || has('win64')
-	set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+"if has('win32') || has('win64')
+"	set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+"endif
+
+" Carpeta de configuración
+if has('nvim')
+	let vimpath=expand("~/.config/nvim")
+	" Colores 24 bit si estamos en NeoVIM
+	set termguicolors
+else
+	let vimpath=expand("~/.vim")
 endif
 
 " Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+let &runtimepath .= ',' . expand(vimpath . '/bundle/Vundle.vim')
+call vundle#rc(expand(vimpath . '/bundle'))
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'airblade/vim-rooter'
 Plugin 'morhetz/gruvbox'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'hsanson/vim-android'
 "Plugin 'Valloric/YouCompleteMe'
 
@@ -30,11 +41,6 @@ set ruler
 
 " Fondo oscuro
 set background=dark
-
-" Colores 24 bit si estamos en NeoVIM
-if has('nvim')
-	set termguicolors
-endif
 
 " Esquema de colores
 colorscheme gruvbox
@@ -83,20 +89,20 @@ set foldmethod=syntax
 
 " Todos los backups, swaps y undo a su correspondiente directorio. Chequea si
 " el directorio existe, y lo crea si es necesario.
-if !isdirectory(expand("$HOME/.vim/swap"))
-        call mkdir($HOME.'/.vim/swap', "p")
+if !isdirectory(expand(vimpath . '/swap'))
+        call mkdir(expand(vimpath .'/swap'), "p")
 endif
-set directory=~/.vim/swap// "El / al final crea los backup con la ruta completa en el nombre
+let &directory=vimpath . '/swap//'
 
-if !isdirectory(expand("$HOME/.vim/backup"))
-        call mkdir($HOME.'/.vim/backup', "p")
+if !isdirectory(expand(vimpath . '/backup'))
+        call mkdir(expand(vimpath .'/backup'), "p")
 endif
-set backupdir=~/.vim/backup// "Idem anterior
+let &backupdir=vimpath . '/backup//'
 
-if !isdirectory(expand("$HOME/.vim/undo"))
-        call mkdir($HOME.'/.vim/undo', "p")
+if !isdirectory(expand(vimpath . '/undo'))
+        call mkdir(expand(vimpath . '/undo'), "p")
 endif
-set undodir=~/.vim/undo// "Idem anterior
+let &undodir=vimpath . '/undo//'
 
 " Panel de navegación a la izquierda, se activa con CTRL-E
 function! ToggleVExplorer()
