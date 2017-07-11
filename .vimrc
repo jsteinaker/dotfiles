@@ -38,8 +38,7 @@ Plugin 'airblade/vim-rooter'
 Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'hsanson/vim-android'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'skywind3000/asyncrun.vim'
 
 " Si acabamos de instalar Vundle, instalar los plugins
 if vundle_installed == 0
@@ -150,18 +149,21 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-   let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+   let g:ctrlp_user_command = 'ag -l --nocolor --ignore "AppData" -g "" %s'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
 
-" Desactiva campanas al, por ejemplo, presionar ESC en modo normal
-set noerrorbells visualbell t_vb=
-autocmd GUIEnter * set visualbell t_vb=
+" Start from the right directory
+let g:ctrlp_working_path_mode = "ra"
 
 " Silver searcher
 let g:ag_working_path_mode="r"
+
+" Desactiva campanas al, por ejemplo, presionar ESC en modo normal
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 
 " Vim-Rooter
 let g:rooter_silent_chdir = 1
@@ -181,18 +183,9 @@ else
 	noremap <F6> :execute '!adb install ./build/outputs/apk/' . fnamemodify('.', ':p:h:t') . '-debug.apk'<CR>
 endif
 
-" Configuración de plugin Android
-"if has('win32')
-"	if isdirectory('C:\Program Files (x86)')
-"		"Windows 64 bits
-"		let g:android_sdk_path = 'C:\Program Files (x86)\Android\android-sdk'
-"	else
-"		"Windows 32 bits
-"		let g:android_sdk_path = 'C:\Program Files\Android\android-sdk'
-"	endif
-"else
-"	let g:android_sdk_path = '/opt/android-sdk-linux'
-"endif
+" Maps for Copy/Paste
+noremap <C-c> "*+
+set pastetoggle=<F10>
+" Ctrl-V activa el modo de pegado, inserta el registro + y desactiva.
+inoremap <C-v> <F10><C-r>+<F10>
 
-" Prueba transparencia
-"hi Normal ctermbg=NONE
