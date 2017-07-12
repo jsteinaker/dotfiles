@@ -34,7 +34,6 @@ call vundle#rc(expand(vimpath . '/bundle'))
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'rking/ag.vim'
-Plugin 'airblade/vim-rooter'
 Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -188,4 +187,3 @@ noremap <C-c> "*+
 set pastetoggle=<F10>
 " Ctrl-V activa el modo de pegado, inserta el registro + y desactiva.
 inoremap <C-v> <F10><C-r>+<F10>
-
